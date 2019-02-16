@@ -57,18 +57,24 @@ end
 function CarEntity:draw()
     local angle = self.body:getAngle()
     love.graphics.push()
+    love.graphics.translate(self.body:getX(), self.body:getY())
     love.graphics.rotate(angle)
-    love.graphics.rectangle("fill", self.body:getX(), self.body:getY(), self.width, self.height)
+    love.graphics.translate(-self.body:getX(), -self.body:getY())
+    love.graphics.rectangle("line", 
+        self.body:getX() - self.width/2, 
+        self.body:getY() - self.width/2,
+        self.width, self.height)
     love.graphics.pop()
+    love.graphics.circle("line", self.body:getX(), self.body:getY(), 3)
 end
  
 function CarEntity:update(dt)
     if love.keyboard.isDown("w") then
         self.desiredSpeed = self.maxFowardSpeed
-    end
- 
-    if love.keyboard.isDown("s") then
+    elseif love.keyboard.isDown("s") then
         self.desiredSpeed = self.maxBackwardSpeed
+    else
+        self.desiredSpeed = 0
     end
  
     currentFowardNormal = vec2.new(self.body:getWorldVector(0,-1))
@@ -77,11 +83,11 @@ function CarEntity:update(dt)
     
  
     if love.keyboard.isDown("a") then
-        self.desiredTorque = 15
-    end
- 
-    if love.keyboard.isDown("d") then
-        self.desiredTorque = -15
+        self.desiredTorque = -30
+    elseif love.keyboard.isDown("d") then
+        self.desiredTorque = 30
+    else
+        self.desiredTorque = 0
     end
  
     self.body:applyTorque(self.desiredTorque)
@@ -94,8 +100,7 @@ function CarEntity:update(dt)
     end
  
     fx, fy = vec2.unpack(currentFowardNormal)
-    x, y = self.body:getWorldCenter()
-    self.body:applyForce(force*fx, force*fy, x, y)
+    self.body:applyForce(force*fx, force*fy)
  
     self:updatesFriction()
 end
