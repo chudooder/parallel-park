@@ -1,0 +1,18 @@
+{
+    "defaults": {
+        "width": 16,
+        "height": 16
+    },
+    "quads": {
+        "tank-right-0": { "x": 0,  "y": 0 },
+        "tank-right-1": { "x": 16, "y": 0 },
+        "tank-right-2": { "x": 32, "y": 0 },
+        "tank-right-3": { "x": 48, "y": 0 }
+    },
+    "animations": {
+        "tank-right": {
+            "frames": ["tank-right-0", "tank-right-1", "tank-right-2", "tank-right-3"],
+            "length": 1.0
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "defaults": {
+        "width": 16,
+        "height": 16
+    },
+    "quads": {
+        "grass": { "x": 0,  "y": 0 },
+        "grass-path-up": { "x": 16, "y": 0 }
+    }
+}
