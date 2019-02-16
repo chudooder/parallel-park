@@ -51,6 +51,9 @@ function CarEntity:updatesFriction()
     ix, iy = vec2.unpack(impulse)
     x, y = self.body:getWorldCenter()
     self.body:applyLinearImpulse(ix,iy,x,y)
+
+    --angular velocity
+    self.body:applyAngularImpulse(0.1*self.body:getInertia() *-1* self.body:getAngularVelocity());
 end
     
  
