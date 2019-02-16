@@ -33,7 +33,7 @@ end
  
 function CarEntity:getFowardVelocity()
  
-    rightNormalVec = vec2.new(self.body:getWorldVector(0,1))
+    rightNormalVec = vec2.new(self.body:getWorldVector(0,-1))
     linearVelX, linearVelY = self.body:getLinearVelocity()
     linearVelVec = vec2.new(linearVelX, linearVelY)
  
@@ -55,7 +55,11 @@ end
     
  
 function CarEntity:draw()
+    local angle = self.body:getAngle()
+    love.graphics.push()
+    love.graphics.rotate(angle)
     love.graphics.rectangle("fill", self.body:getX(), self.body:getY(), self.width, self.height)
+    love.graphics.pop()
 end
  
 function CarEntity:update(dt)
@@ -67,7 +71,7 @@ function CarEntity:update(dt)
         self.desiredSpeed = self.maxBackwardSpeed
     end
  
-    currentFowardNormal = vec2.new(self.body:getWorldVector(0,1))
+    currentFowardNormal = vec2.new(self.body:getWorldVector(0,-1))
     self.currentSpeed = vec2.dot(self:getFowardVelocity(),currentFowardNormal)
  
     
